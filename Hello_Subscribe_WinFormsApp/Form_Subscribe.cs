@@ -21,7 +21,7 @@ namespace Hello_Subscribe_WinFormsApp
         {
             InitializeComponent();
 
-            client = new MqttClient(IPAddress.Parse("127.0.0.1"));
+            client = new MqttClient(IPAddress.Parse("172.104.35.200"));
 
             client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
 
@@ -30,7 +30,7 @@ namespace Hello_Subscribe_WinFormsApp
 
             // subscribe to the topic "/home/temperature" with QoS 2
             client.Subscribe
-                (new string[] { "/hello" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+                (new string[] { "esp32/temperature" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
         }
 
         void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
@@ -39,9 +39,10 @@ namespace Hello_Subscribe_WinFormsApp
             byte[] buffer = e.Message;
             string s = System.Text.Encoding.UTF8.GetString(buffer, 0, buffer.Length);
 
-            //Console.WriteLine(s);
+            Console.WriteLine(s);
+            this.Invoke(new MethodInvoker(()=> { textBox1.Text += s.ToString() + "\r\n";  } ));
 
-            textBox1.Text += s + "\r\n";
+            
         }
 
         private void Form_Subscribe_FormClosed(object sender, FormClosedEventArgs e)

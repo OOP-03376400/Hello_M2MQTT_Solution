@@ -15,7 +15,7 @@ namespace Hello_Subscribe_ConsoleApp
         {
             Console.WriteLine("Merhaba Subscriber - MQTT");
 
-            MqttClient client = new MqttClient(IPAddress.Parse("127.0.0.1"));
+            MqttClient client = new MqttClient(IPAddress.Parse("172.104.35.200"));
 
             client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
 
@@ -24,7 +24,7 @@ namespace Hello_Subscribe_ConsoleApp
 
             // subscribe to the topic "/home/temperature" with QoS 2
             client.Subscribe
-                (new string[] { "/hello" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+                (new string[] { "esp32/temperature" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
 
 
         }

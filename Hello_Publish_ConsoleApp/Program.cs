@@ -16,16 +16,16 @@ namespace Hello_Publish_ConsoleApp
             Console.WriteLine("Merhaba MQTT");
 
             // create client instance
-            MqttClient client = new MqttClient(IPAddress.Parse("127.0.0.1"));
+            MqttClient client = new MqttClient(IPAddress.Parse("172.104.35.200"));
 
             string clientId = Guid.NewGuid().ToString();
             client.Connect(clientId);
 
             //string strValue = Convert.ToString(value);
-            string strValue = "Merhaba_VS_M2MQTT";
+            string strValue = "off";
 
             // publish a message on "/home/temperature" topic with QoS 2
-            client.Publish("/hello", Encoding.UTF8.GetBytes(strValue)  /*, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE */ );
+            client.Publish("esp32/output", Encoding.UTF8.GetBytes(strValue)  /*, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE */ );
 
         }
     }
